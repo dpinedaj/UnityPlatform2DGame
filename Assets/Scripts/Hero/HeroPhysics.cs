@@ -18,6 +18,7 @@
             _hc.heroRen.flipX = !_hc.heroRen.flipX;
             _hc.attackTrans.localPosition = new Vector3( - _hc.attackTrans.localPosition.x, 0, 0);
             _hc.sideTrans.localPosition = new Vector3(- _hc.sideTrans.localPosition.x, 0, 0);
+
         }
         
         private void MoveHorizontal(float move)

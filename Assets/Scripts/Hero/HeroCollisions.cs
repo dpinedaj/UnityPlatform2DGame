@@ -19,11 +19,6 @@
         {
             CheckFloor();
         }
-        public void DrawCollidersRange()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(_hc.feetTrans.position, _hc.contactRadius);
-            Gizmos.DrawWireSphere(_hc.sideTrans.position, _hc.contactRadius);
-        }
+        
     }
 }

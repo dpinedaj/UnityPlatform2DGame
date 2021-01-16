@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Hero
 {
@@ -14,7 +15,8 @@ namespace Hero
         public Transform headTrans;
         public Transform feetTrans;
         public Transform sideTrans;
-        public Transform attackTrans; 
+        public Transform attackTrans;
+        
         // Internal Game Objects
         public Animator heroAnim;
         public Rigidbody2D heroRb;
@@ -59,19 +61,22 @@ namespace Hero
          _hP.HandleMovements();
          _hC.HandleDelimiters();
          _hA.HandleAnimations();
-         _hT.HandleAttacks();
+         var hitList = _hT.HandleAttacks();
 
-         foreach (var enemy in _hT.DestroyedEnemies)
+         foreach (var enemy in hitList)
          {
-             Destroy(enemy);
+             Destroy(enemy.gameObject);
          }
 
         }
 
         private void OnDrawGizmosSelected()
         {
-            _hC.DrawCollidersRange();
-            _hT.DrawAttackRange();
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(feetTrans.position, contactRadius);
+            Gizmos.DrawWireSphere(sideTrans.position, contactRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackTrans.position, attackRange);
             
         }
     }
