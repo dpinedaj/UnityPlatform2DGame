@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Hero
+namespace Backup
 {
     public class Movements : MonoBehaviour
     {
@@ -14,8 +13,7 @@ namespace Hero
         // Objects to handle collisions and blocks
         public Transform headTrans;
         public Transform feetTrans;
-        public Transform rightTrans;
-        public Transform leftTrans;
+        public Transform sideTrans;
         public Transform attackTrans;
 
         // Define variables to interact with the environment
@@ -29,11 +27,10 @@ namespace Hero
         // Define constants to manage Hero behavior
         private const float Speed = 2f;
         private const float JumpPower = 5f;
-        private const float FloorRadius = 0.1f;
+        private const float ContactRadius = 0.005f;
 
         // States variables
-        private bool _onFloor;
-        private bool _onAttack;
+        [SerializeField] private bool _onFloor;
         private bool _facingRight = true;
 
         // Controls
@@ -60,6 +57,7 @@ namespace Hero
             _facingRight = !_facingRight;
             _heroRen.flipX = !_heroRen.flipX;
             attackTrans.localPosition = new Vector3( - attackTrans.localPosition.x, 0, 0);
+            sideTrans.localPosition = new Vector3(- sideTrans.localPosition.x, 0, 0);
         }
 
         private void RunAnimation(float velX)
@@ -106,7 +104,7 @@ namespace Hero
         private void CheckFloor()
         {
             // TODO Modify to use this just when overlaps the feet or something like
-            _onFloor = Physics2D.OverlapCircle(feetTrans.position, FloorRadius, layerFloor);
+            _onFloor = Physics2D.OverlapCircle(feetTrans.position, ContactRadius, layerFloor);
         }
 
         private void HandleDelimiters()
@@ -121,6 +119,12 @@ namespace Hero
             HandleDelimiters();
             HandleMovements();
             HandleAnimations();
+        }
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(feetTrans.position, ContactRadius);
+            Gizmos.DrawWireSphere(sideTrans.position, ContactRadius);
         }
     }
 }

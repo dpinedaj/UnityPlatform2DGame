@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Hero
+namespace Backup
 {
     public class AttackController: MonoBehaviour
     {

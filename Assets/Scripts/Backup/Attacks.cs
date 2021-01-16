@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace Hero
+namespace Backup
 {
     public class Attacks : MonoBehaviour
     {
